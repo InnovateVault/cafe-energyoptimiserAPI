@@ -32,6 +32,12 @@ public class CafeProfile {
     @Column(nullable = false)
     private String location;
 
+    /**
+     * All energy readings that belong to this café.
+     * This is mainly kept so we can easily look up a café’s readings when needed
+     * (for example, during debugging or analytics). It is loaded lazily, so it
+     * won’t slow anything down unless we actually access it.
+     */
     @OneToMany(mappedBy = "cafe", fetch = FetchType.LAZY)
     @Builder.Default
     private Set<EnergyReading> readings = new HashSet<>();
