@@ -1,0 +1,52 @@
+# stuff I don’t want in my Docker image
+
+# Maven wrapper files
+.mvn/
+mvnw
+mvnw.cmd
+
+# project helper file
+HELP.md
+
+# ----------------------------
+# my IDE/editor stuff
+# ----------------------------
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# VS Code
+.vscode/
+
+# NetBeans
+nbproject/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# other build folders I don’t care about
+build/
+out/
+
+# ----------------------------
+# my env variables
+# ----------------------------
+.env
+
+# ----------------------------
+# logs and temp stuff
+# ----------------------------
+*.log
