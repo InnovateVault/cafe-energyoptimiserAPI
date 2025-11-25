@@ -1,6 +1,7 @@
 package com.energyoptimiser.cafe.service;
 
 import com.energyoptimiser.cafe.dto.UploadResponse;
+import com.energyoptimiser.cafe.exception.BadRequestException;
 import com.energyoptimiser.cafe.model.CafeProfile;
 import com.energyoptimiser.cafe.model.EnergyReading;
 import com.energyoptimiser.cafe.repository.CafeProfileRepository;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -80,11 +82,12 @@ class IngestionServiceTest {
         MockMultipartFile file = new MockMultipartFile(
                 "file", "bad.csv", "text/csv", csv.getBytes(StandardCharsets.UTF_8));
 
-        UploadResponse response = ingestionService.processCSV(file);
+        // assert that the exception is thrown
+        BadRequestException exception = assertThrows(BadRequestException.class, () -> ingestionService.processCSV(file));
 
-        assertThat(response.rowsImported()).isEqualTo(0);
-        assertThat(response.status()).startsWith("ERROR:");
+        assertThat(exception.getMessage()).contains("Invalid CSV row");
 
+        // repository should not be called
         verifyNoInteractions(readingRepo);
     }
 

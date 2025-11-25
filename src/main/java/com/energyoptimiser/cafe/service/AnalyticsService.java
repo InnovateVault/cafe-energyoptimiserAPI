@@ -1,5 +1,6 @@
 package com.energyoptimiser.cafe.service;
 
+import com.energyoptimiser.cafe.exception.CafeNotFoundException;
 import com.energyoptimiser.cafe.model.EnergyReading;
 import com.energyoptimiser.cafe.repository.EnergyReadingRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class AnalyticsService
      */
     public Map<LocalDate, Double> getDailyUsage(Long cafeId) {
         List<EnergyReading> readings = energyReadingRepository.findByCafe_Id(cafeId);
+        if (readings.isEmpty()) {
+            throw new CafeNotFoundException(cafeId);
+        }
+
         Map<LocalDate, Double> daily = new TreeMap<>();
         for (EnergyReading r : readings) {
             LocalDate day = r.getTimestamp().toLocalDate();
@@ -36,6 +41,10 @@ public class AnalyticsService
      */
     public Map<Integer, Double> getHourlyUsage(Long cafeId) {
         List<EnergyReading> readings = energyReadingRepository.findByCafe_Id(cafeId);
+        if (readings.isEmpty()) {
+            throw new CafeNotFoundException(cafeId);
+        }
+
         Map<Integer, Double> hourly = new TreeMap<>();
         for (EnergyReading r : readings) {
             int hour = r.getTimestamp().getHour();
