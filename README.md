@@ -89,4 +89,9 @@ Config: Update your credentials in src/main/resources/application.properties.
 
 Run: Execute mvn spring-boot:run.
 
-Explore: Access the interactive Swagger documentation at http://localhost:8080/swagger-ui.html.
+## 🚀 Try It Out
+
+You can explore and test the API endpoints directly using the interactive Swagger UI:
+
+👉 [Live Swagger UI](https://cafeenergyoptimiser.onrender.com/swagger-ui/index.html)
+
